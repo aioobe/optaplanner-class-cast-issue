@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id "application"
+}
+
+group 'org.aioobe.schedules'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked"
+}
+
+dependencies {
+
+    // Immutables
+    def immutablesVersion = "2.8.2"
+    annotationProcessor "org.immutables:value:$immutablesVersion"
+    compileOnly "org.immutables:value:$immutablesVersion"
+    implementation "org.immutables:criteria-inmemory:$immutablesVersion"
+
+    // OptaPlanner
+    //def optaplannerVersion = "8.9.1.Final"
+    def optaplannerVersion = "8.12.0.Final"
+    implementation "org.optaplanner:optaplanner-core:$optaplannerVersion"
+    testImplementation "org.optaplanner:optaplanner-test:$optaplannerVersion"
+
+    // Logging
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+ext {
+   javaMainClass = "vngschedules.Main"
+}
+
+application {
+    mainClassName = javaMainClass
+}

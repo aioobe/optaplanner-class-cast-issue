@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver xmlns="https://www.optaplanner.org/xsd/solver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.optaplanner.org/xsd/solver https://www.optaplanner.org/xsd/solver/solver.xsd">
+    <!-- 9.13.3. Multithreaded incremental solving -->
+    <moveThreadCount>AUTO</moveThreadCount>
+
+    <!-- Define the model -->
+    <solutionClass>vngschedules.schedule.Schedule</solutionClass>
+    <entityClass>vngschedules.schedule.RecurringLecture</entityClass>
+
+    <!-- Define the score function -->
+    <scoreDirectorFactory>
+        <constraintProviderClass>vngschedules.solver.SchedulingConstraintProvider</constraintProviderClass>
+    </scoreDirectorFactory>
+
+    <localSearch>
+        <termination>
+            <unimprovedStepCountLimit>10000</unimprovedStepCountLimit>
+        </termination>
+
+        <unionMoveSelector>
+          <changeMoveSelector>
+          </changeMoveSelector>
+          <swapMoveSelector>
+          </swapMoveSelector>
+        </unionMoveSelector>
+
+        <acceptor>
+            <entityTabuSize>7</entityTabuSize>
+        </acceptor>
+
+        <forager>
+            <acceptedCountLimit>1000</acceptedCountLimit>
+        </forager>
+    </localSearch>
+
+</solver>
